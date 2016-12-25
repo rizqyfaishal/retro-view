@@ -1,0 +1,23 @@
+{
+  "name": "retro-view",
+  "version": "1.0.0",
+  "description": "Retro front-end website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "website",
+    "retro",
+    "tryout"
+  ],
+  "author": "rizqyfaishal",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-sass": "^3.0.0"
+  }
+}
