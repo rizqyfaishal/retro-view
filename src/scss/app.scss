@@ -20,12 +20,21 @@
 @import "modules/grid";
 @import "modules/buttons";
 @import "modules/forms";
-@import "modules/lists";
-@import "modules/code";
+//@import "modules/lists";
+//@import "modules/code";
 @import "modules/tables";
-@import "modules/spacing";
+//@import "modules/spacing";
 @import "modules/media-queries";
 
+.form {
+  .rows{
+    padding: 1em 0 0 0;
+  }
+}
+
+button:disabled {
+  cursor: no-drop;
+}
 
 .header-table {
   display: table;
@@ -52,5 +61,38 @@
 h1 {
   &.title {
     color: #ffffff;
+  }
+}
+
+.extra-padd {
+  padding: 2em 1em;
+}
+
+.extra-padd-h {
+  display: block;
+  width: 500px;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px){
+  .extra-padd-h {
+    width: 100%;
+  }
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  .content {
+    display: table-cell;
+    vertical-align: middle;
+    a {
+      max-width: 300px;
+    }
   }
 }

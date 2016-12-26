@@ -1,10 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="container extra-padd">
+    <h2 class="text-center">Daftar Tryout</h2>
+    <div class="extra-padd-h">
+        <p>Isi form berikut yaa!!</p>
+        <form novalidate name="form" class="form">
 
-</body>
-</html>
+            <div class="rows">
+                <label for="name">Nama Lengkap</label>
+                <input type="text" class="u-full-width"
+                       placeholder="Nama Lengkap"
+                       ng-required="true"
+                       ng-minlength="3"
+                       ng-maxlength="25"
+                       name="name"
+                       ng-pattern="/^[A-Za-z \']{3,}$/"
+                       ng-model="user.name" id="name">
+                <p class="error"
+                   ng-show="form.name.$invalid && (form.name.$touched || form.name.$dirty)">
+                    <span ng-show="form.name.$error.required">
+                        * Jangan dikosongkan ya field ini
+                        <br>
+                    </span>
+                    <span ng-show="form.name.$error.minlength">
+                        * Nama lengkap minimal harus 3 karakter
+                        <br>
+                    </span>
+                    <span ng-show="form.name.$error.maxlength">
+                        * Nama lengkap terlalu panjang
+                        <br>
+                    </span>
+                     <span ng-show="form.name.$error.pattern">
+                        * Nama lengkap tidak valid
+                         <br>
+                    </span>
+                </p>
+            </div>
+            <div class="rows">
+                <label for="email">Email</label>
+                <input type="email"
+                       class="u-full-width"
+                       placeholder="Email"
+                       ng-required="true"
+                       ng-minlength="3"
+                       ng-maxlength="25"
+                       name="email"
+                       ng-model="user.email" id="email">
+                    <p class="error"
+                       ng-show="form.email.$invalid && (form.email.$touched || form.email.$dirty)">
+                        <span ng-show="form.email.$error.required">
+                            * Jangan dikosongkan ya field ini
+                            <br>
+                        </span>
+                        <span ng-show="form.email.$error.email">
+                            * Format email tidak valid
+                            <br>
+                        </span>
+                    </p>
+            </div>
+            <div class="rows">
+                <label for="phone">Nomor Telepon</label>
+                <input type="text"
+                       class="u-full-width"
+                       placeholder="Nomor Telepon"
+                       ng-required="true"
+                       ng-minlength="8"
+                       ng-maxlength="14"
+                       name="phone"
+                       ng-pattern="/^(^\+62\s?|^0)(\d{3,4}-?){2}\d{3,4}$/"
+                       ng-model="user.phone" id="phone">
+                        <p class="error"
+                           ng-show="form.phone.$invalid && (form.phone.$touched || form.phone.$dirty)">
+                            <span ng-show="form.phone.$error.required">
+                                * Jangan dikosongkan ya field ini
+                                <br>
+                            </span>
+
+                             <span ng-show="form.phone.$error.pattern">
+                                * Format nomor telepon tidak valid
+                                 <br>
+                            </span>
+                        </p>
+            </div>
+            <div class="rows">
+                <label for="school">Asal Sekolah</label>
+                <input type="text"
+                       class="u-full-width"
+                       placeholder="Asal Sekolah"
+                       ng-required="true"
+                       ng-minlength="3"
+                       ng-maxlength="25"
+                       name="school"
+                       ng-pattern="/^[A-Za-z \d]{3,}$/"
+                       ng-model="user.school" id="school">
+                <p class="error"
+                   ng-show="form.school.$invalid && (form.school.$touched || form.school.$dirty)">
+                            <span ng-show="form.school.$error.required">
+                                * Jangan dikosongkan ya field ini
+                                <br>
+                            </span>
+                             <span ng-show="form.school.$error.pattern">
+                                * Format penamaan sekolah tidak valid
+                                 <br>
+                            </span>
+                </p>
+            </div>
+            <div class="rows">
+                <div class="six columns">
+                    <label for="type">Jurusan</label>
+                    <select ng-required="true" ng-init="user.type = 'SAINTEK'"
+                            class="u-full-width"
+                            name="type"
+                            ng-model="user.type" id="type">
+                        <option value="SAINTEK" selected>SAINTEK</option>
+                        <option value="SOSHUM">SOSHUM</option>
+                    </select>
+                    <p class="error"
+                       ng-show="form.type.$invalid && (form.type.$touched || form.type.$dirty)">
+                            <span ng-show="form.type.$error.required">
+                                * Jangan dikosongkan ya field ini
+                                <br>
+                            </span>
+                    </p>
+                </div>
+                <div class="six columns">
+                    <label for="gender">Jenis Kelamin</label>
+                    <select ng-required="true" ng-init="user.gender = 'Laki-laki'"
+                            class="u-full-width"
+                            name="gender"
+                            ng-model="user.gender" id="gender">
+                        <option value="Laki-laki" selected>Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                    <p class="error"
+                       ng-show="form.gender.$invalid && (form.gender.$touched || form.gender.$dirty)">
+                            <span ng-show="form.gender.$error.required">
+                                * Jangan dikosongkan ya field ini
+                                <br>
+                            </span>
+                    </p>
+                </div>
+            </div>
+            <div class="rows">
+                <button style="margin: 1em 0;" type="button" ng-disabled="form.$invalid" ng-click="submit(user);"
+                        class="button-primary u-pull-right">
+                    <span ng-hide="process">Daftar!</span>
+                    <span ng-show="process">Processing...</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
