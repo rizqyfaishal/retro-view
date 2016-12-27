@@ -139,6 +139,18 @@ var app = angular.module('app',['ui.router','ngRoute'])
                 templateUrl: '/templates/check.html',
                 controller: 'CheckController'
             })
+            .state('static.success_template',{
+                title: 'Sukses',
+                url: '/berhasil',
+                templateUrl: '/templates/success_template.html',
+                controller: 'SuccessController'
+            })
+            .state('static.result',{
+                title: 'Result',
+                url: '/result',
+                templateUrl: '/templates/check_result.html',
+                controller: 'ResultController'
+            })
             .state('static.success',{
                 title: 'Pendaftaran Sukses',
                 url: '/success',
@@ -190,19 +202,47 @@ var app = angular.module('app',['ui.router','ngRoute'])
             $scope.data = data.data;
         })
     })
-    .controller('CheckController',function ($scope) {
-
+    .controller('SuccessController',function ($scope,$rootScope) {
+        $scope.message = $rootScope.message;
+        $scope.subMessage = $rootScope.subMessage;
     })
-    .controller('ConfirmController',function ($scope, BASE_URL_SERVICE, $http, $q) {
-        $scope.send = function (confirm) {
+    .controller('ResultController',function ($scope, $rootScope) {
+        $scope.message = $rootScope.data;
+    })
+    .controller('CheckController',function ($scope, BASE_URL_SERVICE, $http, $q, $state,$rootScope) {
+        $scope.cek = function (user) {
             var defer = $q.defer();
-            $http.post(BASE_URL_SERVICE + '/peserta/confirm',confirm,function (data) {
+            $http.get(BASE_URL_SERVICE + '/peserta/check/' + user.uuid).then(function (data) {
+                defer.resolve(data);
+            });
+            defer.promise.then(function (data) {
                 console.log(data);
+                $rootScope.data = data.data;
+                $state.go('static.result');
+            });
+        };
+    })
+    .controller('ConfirmController',function ($scope, BASE_URL_SERVICE, $http, $q, $state, $rootScope) {
+        $scope.process = false;
+        $scope.send = function (confirm) {
+            $scope.process = !$scope.process;
+            var defer = $q.defer();
+            $http.post(BASE_URL_SERVICE + '/peserta/confirm',confirm).then(function (data) {
                 defer.resolve(data);
             });
 
             defer.promise.then(function (data) {
                 console.log(data);
+                $scope.process = !$scope.process;
+                if(data.data.message == 'found'){
+                    $rootScope.message = 'Anda telah melakukan konfirmasi pembayaran sebelumnya';
+                    $rootScope.subMessage = true;
+                    $state.go('static.success_template');
+                } else {
+                    $rootScope.message = 'Konfirmasi Pembayaran telah dikirimkan';
+                    $rootScope.subMessage = null;
+                    $state.go('static.success_template');
+                }
             });
         };
     });

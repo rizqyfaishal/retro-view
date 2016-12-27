@@ -15,7 +15,7 @@
                         <div class="rows">
                             <label for="reference">Nomor Referensi</label>
                             <input type="text" ng-model="confirm.reference"
-                                   placeholder="Nomor Refernsi"
+                                   placeholder="Nomor Referensi"
                                    class="u-full-width" id="reference">
                         </div>
                         <div class="rows">
@@ -33,7 +33,10 @@
                         <div class="rows">
                             <button class="button-primary u-pull-right"
                                     ng-click="send(confirm);"
-                                    ng-disabled="form.$invalid">Konfirmasi</button>
+                                    ng-disabled="form.$invalid">
+                                <span ng-show="process">Processing...</span>
+                                <span ng-hide="process">Konfirmasi</span>
+                            </button>
                         </div>
                     </form>
                 </div>
