@@ -3,13 +3,17 @@ var app = angular.module('app',['ui.router','ngRoute'])
     .constant('RETRO_SERVICE_REGISTER','/peserta/register')
     .constant('AccessLevel',{
         nonAuth: 1,
+        openAuth: 3,
         auth: 2
     })
-    .run(function ($rootScope,$state,AdminFactory,AccessLevel) {
+    .run(function ($rootScope,$state,AdminFactory,AccessLevel, AuthTokenFactory) {
         $rootScope.$on('$stateChangeStart',function (e, toState, toParams, fromState, fromParams) {
             if(!AdminFactory.authorize(toState.data.access)){
                 e.preventDefault();
                 $state.go('static.login');
+            } else if(toState.data.access == AccessLevel.openAuth && AuthTokenFactory.getToken()){
+                e.preventDefault();
+                $state.go('admin.dashboard');
             }
         });
         $rootScope.$on('$stateChangeError',function (e) {
@@ -48,6 +52,13 @@ var app = angular.module('app',['ui.router','ngRoute'])
                 return config;
             }
         }
+    })
+    .factory('CollectionData',function (BASE_URL_SERVICE,$http,$q) {
+        var defer = $q.defer();
+        $http.get(BASE_URL_SERVICE + '/admin/getData').then(function (data) {
+            defer.resolve(data);
+        });
+        return defer.promise;
     })
     .factory('AdminFactory',function (AuthTokenFactory, $http, $q, BASE_URL_SERVICE, AccessLevel) {
         return {
@@ -100,7 +111,10 @@ var app = angular.module('app',['ui.router','ngRoute'])
                 url: '/login',
                 title: 'Login',
                 templateUrl: '/templates/login.html',
-                controller: 'LoginController'
+                controller: 'LoginController',
+                data: {
+                    access: AccessLevel.openAuth
+                }
             })
             .state('static.home',{
                 title: 'Home Page',
@@ -112,6 +126,18 @@ var app = angular.module('app',['ui.router','ngRoute'])
                 url: '/daftar',
                 templateUrl: '/templates/reg.html',
                 controller: 'RegController'
+            })
+            .state('static.confirm',{
+                url: '/confirm',
+                title: 'Konfirmasi Pembayaran',
+                templateUrl: '/templates/confirm.html',
+                controller: 'ConfirmController'
+            })
+            .state('static.check',{
+                url: '/check',
+                title: 'Check Pembayaran',
+                templateUrl: '/templates/check.html',
+                controller: 'CheckController'
             })
             .state('static.success',{
                 title: 'Pendaftaran Sukses',
@@ -153,6 +179,30 @@ var app = angular.module('app',['ui.router','ngRoute'])
         }
 
     })
-    .controller('DashboardController',function ($scope) {
+    .controller('DashboardController',function ($scope, AdminFactory, $state, CollectionData) {
+        $scope.logout = function () {
+            AdminFactory.logout();
+            $state.go('static.login');
+        };
 
+        CollectionData.then(function (data) {
+            console.log(data);
+            $scope.data = data.data;
+        })
+    })
+    .controller('CheckController',function ($scope) {
+
+    })
+    .controller('ConfirmController',function ($scope, BASE_URL_SERVICE, $http, $q) {
+        $scope.send = function (confirm) {
+            var defer = $q.defer();
+            $http.post(BASE_URL_SERVICE + '/peserta/confirm',confirm,function (data) {
+                console.log(data);
+                defer.resolve(data);
+            });
+
+            defer.promise.then(function (data) {
+                console.log(data);
+            });
+        };
     });

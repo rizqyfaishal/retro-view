@@ -1,16 +1,41 @@
-<div class="container">
+<div class="containers" style="display: block; margin: 0 auto;width: 1300px;">
     <h1 class="text-center">Welcome Admin</h1>
     <h3 class="text-center">This is your dashboard</h3>
     <div class="rows">
-        <table>
+        <table class="table" style="display: block;margin: 0 auto;">
             <thead>
             <tr>
-                <td></td>
+                <td>No</td>
+                <td>UUID</td>
+                <td>Nama Lengkap</td>
+                <td>Jenis Kelamin</td>
+                <td>Email</td>
+                <td>Phone</td>
+                <td>SMA</td>
+                <td>Jurusan</td>
+                <td>Tanggal Daftar</td>
+                <td>Status Pembayaran</td>
+                <td>Status Masuk</td>
             </tr>
             </thead>
             <tbody>
-
+            <tr ng-repeat="peserta in data">
+                <td>{{ peserta.counter }}</td>
+                <td>{{ peserta.uuid }}</td>
+                <td>{{ peserta.name}}</td>
+                <td>{{ peserta.gender }}</td>
+                <td>{{ peserta.email }}</td>
+                <td>{{ peserta.phone }}</td>
+                <td>{{ peserta.school }}</td>
+                <td>{{ peserta.type }}</td>
+                <td>{{ peserta.createdAt | date }}</td>
+                <td>{{ peserta.status_pembayaran }}</td>
+                <td>{{ peserta.status_masuk }}</td>
+            </tr>
             </tbody>
         </table>
     </div>
+    <footer>
+        <a ng-click="logout();" class="button button-primary" style="margin: 2em auto;width: 12em;display: block;">Logout</a>
+    </footer>
 </div>

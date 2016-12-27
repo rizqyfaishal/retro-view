@@ -1,0 +1,43 @@
+<div class="success">
+    <div class="content">
+        <div class="container">
+            <div class="rows">
+                <h2 class="text-center">Konfirmasi Pembayaran</h2>
+                <div class="extra-padd-h">
+                    <form name="form" class="form">
+                        <div class="rows">
+                            <label for="uuid">UUID</label>
+                            <input type="text" ng-model="confirm.uuid"
+                                   placeholder="Nomor UUID"
+                                   ng-required=""
+                                   class="u-full-width" id="uuid">
+                        </div>
+                        <div class="rows">
+                            <label for="reference">Nomor Referensi</label>
+                            <input type="text" ng-model="confirm.reference"
+                                   placeholder="Nomor Refernsi"
+                                   class="u-full-width" id="reference">
+                        </div>
+                        <div class="rows">
+                            <label for="name">Atas Nama</label>
+                            <input type="text" ng-model="confirm.name"
+                                   placeholder="Atas Nama"
+                                   class="u-full-width" id="name">
+                        </div>
+                        <div class="rows">
+                            <label for="nominal">Nominal</label>
+                            <input type="text" ng-model="confirm.nominal"
+                                   placeholder="Nominal"
+                                   class="u-full-width" id="nominal">
+                        </div>
+                        <div class="rows">
+                            <button class="button-primary u-pull-right"
+                                    ng-click="send(confirm);"
+                                    ng-disabled="form.$invalid">Konfirmasi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
