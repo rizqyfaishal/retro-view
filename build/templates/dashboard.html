@@ -8,8 +8,12 @@
         <input style="display: inline-block;" type="checkbox" ng-model="controls.gender" ng-click="toggle(controls.gender);">Jenis Kelamin
         <input style="display: inline-block;" type="checkbox" ng-model="controls.email" ng-click="toggle(controls.email);">Email
         <input style="display: inline-block;" type="checkbox" ng-model="controls.phone" ng-click="toggle(controls.phone);">Phone
-
-
+        <input style="display: inline-block;" type="checkbox" ng-model="controls.school" ng-click="toggle(controls.school);">SMA
+        <input style="display: inline-block;" type="checkbox" ng-model="controls.type" ng-click="toggle(controls.type);">Jurusan
+        <input style="display: inline-block;" type="checkbox" ng-model="controls.createdAt" ng-click="toggle(controls.createdAt);">Tanggal Mendaftar
+        <input style="display: inline-block;" type="checkbox" ng-model="controls.payment" ng-click="toggle(controls.payment);">Status Pembayaran
+        <input style="display: inline-block;" type="checkbox" ng-model="controls.enter" ng-click="toggle(controls.enter);">Status Masuk
+        <input style="display: inline-block" type="text" ng-model="search" placeholder="Cari">
 
     </form>
     <div class="rows">
@@ -25,12 +29,13 @@
                 <td ng-if="controls.school">SMA</td>
                 <td ng-if="controls.type">Jurusan</td>
                 <td ng-if="controls.createdAt">Tanggal Daftar</td>
+                <td ng-if="controls.payment">Detail Pembayaran</td>
                 <td ng-if="controls.payment">Status Pembayaran</td>
                 <td ng-if="controls.enter">Status Masuk</td>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="peserta in data">
+            <tr ng-repeat="peserta in data | filter:search">
                 <td ng-if="controls.no">{{ peserta.counter }}</td>
                 <td ng-if="controls.uuid">{{ peserta.uuid }}</td>
                 <td ng-if="controls.name">{{ peserta.name}}</td>
@@ -40,7 +45,8 @@
                 <td ng-if="controls.school">{{ peserta.school }}</td>
                 <td ng-if="controls.type">{{ peserta.type }}</td>
                 <td ng-if="controls.createdAt">{{ peserta.createdAt | date }}</td>
-                <td ng-if="controls.payment">{{ peserta.status_pembayaran }}</td>
+                <td ng-if="controls.payment"><a class="button button-primary" ui-sref="admin.payment({uuid: peserta.uuid})">Cek</a></td>
+                <td ng-if="controls.enter">{{ peserta.status_pembayaran }}</td>
                 <td ng-if="controls.enter">{{ peserta.status_masuk }}</td>
             </tr>
             </tbody>

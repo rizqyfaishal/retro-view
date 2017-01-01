@@ -1,0 +1,62 @@
+<div class="success">
+    <div class="content">
+        <div class="container">
+            <div class="rows">
+                <h3 ng-show="processing" class="text-center">Fetching Data</h3>
+                <div ng-hide="processing" style="padding: 0 2em;">
+                    <h2 class="text-center">Detail Pembayaran</h2>
+                    <table style="width: 50%;padding: 0 3em;margin: 0 auto;border: none" class="table-edit">
+                        <tr style="border: none">
+                            <td class="text-center">UUID</td>
+                            <td class="text-center">:</td>
+                            <td class="text-center"><span style="font-weight: bold">{{ data.uuid }}</span></td>
+                        </tr>
+                        <tr style="border: none">
+                            <td class="text-center">Nama</td>
+                            <td class="text-center">:</td>
+                            <td class="text-center"><span style="font-weight: bold">{{ data.name }}</span></td>
+                        </tr>
+                        <tr style="border: none">
+                            <td class="text-center">Ststus Pembayaran</td>
+                            <td class="text-center">:</td>
+                            <td class="text-center"><span style="font-weight: bold">{{ status }}</span></td>
+                        </tr>
+                    </table>
+                    <div ng-hide="data.payment" class="confirmation" >
+                        <h3 class="text-center">Konfirmasi Pembayaran</h3>
+                        <p class="text-center">Belum Melakukan Konfirmasi Pembayaran</p>
+                    </div>
+                    <div ng-show="data.payment" class="confirmation" >
+                        <h3 class="text-center">Konfirmasi Pembayaran</h3>
+                        <table style="width: 50%;padding: 0 3em;margin: 0 auto;border: none" class="table-edit">
+                            <tr style="border: none">
+                                <td class="text-center">Nomor Referensi</td>
+                                <td class="text-center">:</td>
+                                <td class="text-center"><span style="font-weight: bold">{{ data.payment.reference }}</span></td>
+                            </tr>
+                            <tr style="border: none">
+                                <td class="text-center">Atas Nama</td>
+                                <td class="text-center">:</td>
+                                <td class="text-center"><span style="font-weight: bold">{{ data.payment.name }}</span></td>
+                            </tr>
+                            <tr style="border: none">
+                                <td class="text-center">Nominal</td>
+                                <td class="text-center">:</td>
+                                <td class="text-center"><span style="font-weight: bold">{{ data.payment.nominal }}</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div ng-hide="data.status_pembayaran">
+                        <button class="button-primary" style="margin: 0 auto;display: block;" ng-click="toggle(data.uuid)">Konfirmasi Pembayaran</button>
+                    </div>
+                    <div ng-show="data.status_pembayaran">
+                        <button class="button-primary" style="margin: 0 auto;display: block;" ng-click="toggle(data.uuid)">Batalkan Konfirmasi Pembayaran</button>
+                    </div>
+                    <div>
+                        <a ui-sref="admin.dashboard"  class="text-center" style="margin: 0 auto;display: block;">Kembali ke dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

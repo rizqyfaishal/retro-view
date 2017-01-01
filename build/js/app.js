@@ -505,6 +505,12 @@ var app = angular.module('app',['ui.router','ngRoute'])
                 templateUrl: '/templates/check_result.html',
                 controller: 'ResultController'
             })
+            .state('admin.payment',{
+                title: 'Detail Pembayaran',
+                url: '/:uuid/pembayaran',
+                templateUrl: '/templates/payment.html',
+                controller: 'PaymentController'
+            })
             .state('static.success',{
                 title: 'Pendaftaran Sukses',
                 url: '/success',
@@ -514,6 +520,42 @@ var app = angular.module('app',['ui.router','ngRoute'])
     })
     .controller('SuccessController',function ($scope, $rootScope) {
         $scope.uuid = $rootScope.data.uuid;
+    })
+    .controller('PaymentController',function ($scope, $rootScope, $stateParams, $q, $http, BASE_URL_SERVICE, $state) {
+       function init() {
+           $scope.processing = true;
+           var defer = $q.defer();
+           var uuid = $stateParams.uuid;
+
+           $http.get(BASE_URL_SERVICE + '/peserta/payment/' + uuid).then(function (data) {
+               defer.resolve(data);
+           });
+
+
+
+           defer.promise.then(function (data) {
+               $scope.processing = false;
+               $scope.data = data.data;
+               if($scope.data.status_pembayaran){
+                   $scope.status = 'Sudah Dikonnfirmasi';
+               } else {
+                   $scope.status = 'Belum Terkonfirmasi';
+               }
+               console.log(data);
+           });
+       }
+        init();
+
+        $scope.toggle = function (uuid) {
+            var defer2 = $q.defer();
+            $http.post(BASE_URL_SERVICE + '/peserta/payment/' + uuid + '/toggle',{ status: $scope.data.status_pembayaran}).then(function (data) {
+                defer2.resolve(data);
+            });
+            defer2.promise.then(function (data) {
+                console.log(data);
+                init();
+            });
+        };
     })
     .controller('RegController',function ($scope, $http, RETRO_SERVICE_REGISTER, BASE_URL_SERVICE,$q,$state,$rootScope) {
         var defer = $q.defer();
