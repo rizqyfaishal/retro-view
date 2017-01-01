@@ -1,5 +1,5 @@
 var app = angular.module('app',['ui.router','ngRoute'])
-    .constant('BASE_URL_SERVICE','http://localhost:3000')
+    .constant('BASE_URL_SERVICE','https://retro-server.herokuapp.com')
     .constant('RETRO_SERVICE_REGISTER','/peserta/register')
     .constant('AccessLevel',{
         nonAuth: 1,
