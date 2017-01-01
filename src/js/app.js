@@ -166,6 +166,7 @@ var app = angular.module('app',['ui.router','ngRoute'])
     })
     .controller('SuccessController',function ($scope, $rootScope) {
         $scope.uuid = $rootScope.data.uuid;
+        console.log($rootScope.data);
     })
     .controller('PaymentController',function ($scope, $rootScope, $stateParams, $q, $http, BASE_URL_SERVICE, $state) {
        function init() {
