@@ -497,7 +497,7 @@ var app = angular.module('app',['ui.router','ngRoute'])
                 title: 'Sukses',
                 url: '/berhasil',
                 templateUrl: '/templates/success_template.html',
-                controller: 'SuccessController'
+                controller: 'SuccessTemplateController'
             })
             .state('static.result',{
                 title: 'Result',
@@ -615,7 +615,7 @@ var app = angular.module('app',['ui.router','ngRoute'])
             $scope.data = data.data;
         })
     })
-    .controller('SuccessController',function ($scope,$rootScope) {
+    .controller('SuccessTemplateController',function ($scope,$rootScope) {
         $scope.message = $rootScope.message;
         $scope.subMessage = $rootScope.subMessage;
     })
