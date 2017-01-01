@@ -1,5 +1,5 @@
 var app = angular.module('app',['ui.router','ngRoute'])
-    .constant('BASE_URL_SERVICE','https://retro-server.herokuapp.com')
+    .constant('BASE_URL_SERVICE','http://localhost:3000')
     .constant('RETRO_SERVICE_REGISTER','/peserta/register')
     .constant('AccessLevel',{
         nonAuth: 1,
@@ -192,6 +192,22 @@ var app = angular.module('app',['ui.router','ngRoute'])
 
     })
     .controller('DashboardController',function ($scope, AdminFactory, $state, CollectionData) {
+        $scope.controls = {
+            no: true,
+            uuid: true,
+            name: true,
+            gender: true,
+            email: true,
+            phone: true,
+            school: true,
+            type: true,
+            createdAt: true,
+            payment: true,
+            enter: true
+        };
+        $scope.toggle = function (a) {
+            a = !a;
+        };
         $scope.logout = function () {
             AdminFactory.logout();
             $state.go('static.login');

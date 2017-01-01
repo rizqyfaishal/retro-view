@@ -1,36 +1,47 @@
 <div class="containers" style="display: block; margin: 0 auto;width: 1300px;">
     <h1 class="text-center">Welcome Admin</h1>
     <h3 class="text-center">This is your dashboard</h3>
+    <form action="">
+        <input style="display: inline-block;" type="checkbox" ng-model="controls.no" ng-click="toggle(controls.no);">No
+        <input style="display: inline-block;" type="checkbox" ng-model="controls.uuid" ng-click="toggle(controls.uuid);">uuid
+        <input style="display: inline-block;" type="checkbox" ng-model="controls.name" ng-click="toggle(controls.name);">Nama Lengkap
+        <input style="display: inline-block;" type="checkbox" ng-model="controls.gender" ng-click="toggle(controls.gender);">Jenis Kelamin
+        <input style="display: inline-block;" type="checkbox" ng-model="controls.email" ng-click="toggle(controls.email);">Email
+        <input style="display: inline-block;" type="checkbox" ng-model="controls.phone" ng-click="toggle(controls.phone);">Phone
+
+
+
+    </form>
     <div class="rows">
         <table class="table" style="display: block;margin: 0 auto;">
             <thead>
             <tr>
-                <td>No</td>
-                <td>UUID</td>
-                <td>Nama Lengkap</td>
-                <td>Jenis Kelamin</td>
-                <td>Email</td>
-                <td>Phone</td>
-                <td>SMA</td>
-                <td>Jurusan</td>
-                <td>Tanggal Daftar</td>
-                <td>Status Pembayaran</td>
-                <td>Status Masuk</td>
+                <td ng-if="controls.no">No</td>
+                <td ng-if="controls.uuid">UUID</td>
+                <td ng-if="controls.name">Nama Lengkap</td>
+                <td ng-if="controls.gender">Jenis Kelamin</td>
+                <td ng-if="controls.email">Email</td>
+                <td ng-if="controls.phone">Phone</td>
+                <td ng-if="controls.school">SMA</td>
+                <td ng-if="controls.type">Jurusan</td>
+                <td ng-if="controls.createdAt">Tanggal Daftar</td>
+                <td ng-if="controls.payment">Status Pembayaran</td>
+                <td ng-if="controls.enter">Status Masuk</td>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="peserta in data">
-                <td>{{ peserta.counter }}</td>
-                <td>{{ peserta.uuid }}</td>
-                <td>{{ peserta.name}}</td>
-                <td>{{ peserta.gender }}</td>
-                <td>{{ peserta.email }}</td>
-                <td>{{ peserta.phone }}</td>
-                <td>{{ peserta.school }}</td>
-                <td>{{ peserta.type }}</td>
-                <td>{{ peserta.createdAt | date }}</td>
-                <td>{{ peserta.status_pembayaran }}</td>
-                <td>{{ peserta.status_masuk }}</td>
+                <td ng-if="controls.no">{{ peserta.counter }}</td>
+                <td ng-if="controls.uuid">{{ peserta.uuid }}</td>
+                <td ng-if="controls.name">{{ peserta.name}}</td>
+                <td ng-if="controls.gender">{{ peserta.gender }}</td>
+                <td ng-if="controls.email">{{ peserta.email }}</td>
+                <td ng-if="controls.phone">{{ peserta.phone }}</td>
+                <td ng-if="controls.school">{{ peserta.school }}</td>
+                <td ng-if="controls.type">{{ peserta.type }}</td>
+                <td ng-if="controls.createdAt">{{ peserta.createdAt | date }}</td>
+                <td ng-if="controls.payment">{{ peserta.status_pembayaran }}</td>
+                <td ng-if="controls.enter">{{ peserta.status_masuk }}</td>
             </tr>
             </tbody>
         </table>
