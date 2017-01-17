@@ -3,7 +3,6 @@
     <div class="extra-padd-h">
         <p>Isi form berikut yaa!!</p>
         <form novalidate name="form" class="form">
-
             <div class="rows">
                 <label for="name">Nama Lengkap</label>
                 <input type="text" class="u-full-width"
@@ -81,6 +80,46 @@
                         </p>
             </div>
             <div class="rows">
+                <label for="status">Status</label>
+                <select ng-required="true" ng-init="user.status = 'Siswa'"
+                        class="u-full-width"
+                        name="status"
+                        ng-model="user.status" id="status">
+                    <option value="Siswa" selected>Siswa</option>
+                    <option value="Orang Tua Siswa">Orang Tua Siswa</option>
+                </select>
+                <p class="error"
+                   ng-show="form.status.$invalid && (form.status.$touched || form.status.$dirty)">
+                            <span ng-show="form.status.$error.required">
+                                * Jangan dikosongkan ya field ini
+                                <br>
+                            </span>
+                </p>
+            </div>
+            <div class="rows" ng-if="user.status == 'Orang Tua Siswa'">
+                <label for="child_name">Nama Siswa</label>
+                <input type="text"
+                       class="u-full-width"
+                       placeholder="Nama Siswa"
+                       ng-required="true"
+                       ng-minlength="3"
+                       ng-maxlength="25"
+                       name="child_name"
+                       ng-pattern="/^[A-Za-z \d]{3,}$/"
+                       ng-model="user.school" id="child_name">
+                <p class="error"
+                   ng-show="form.child_name.$invalid && (form.child_name.$touched || form.child_name.$dirty)">
+                            <span ng-show="form.child_name.$error.required">
+                                * Jangan dikosongkan ya field ini
+                                <br>
+                            </span>
+                             <span ng-show="form.child_name.$error.pattern">
+                                * Format nama siswa tidak valid
+                                 <br>
+                            </span>
+                </p>
+            </div>
+            <div class="rows">
                 <label for="school">Asal Sekolah</label>
                 <input type="text"
                        class="u-full-width"
@@ -102,42 +141,6 @@
                                  <br>
                             </span>
                 </p>
-            </div>
-            <div class="rows">
-                <div class="six columns">
-                    <label for="type">Jurusan</label>
-                    <select ng-required="true" ng-init="user.type = 'SAINTEK'"
-                            class="u-full-width"
-                            name="type"
-                            ng-model="user.type" id="type">
-                        <option value="SAINTEK" selected>SAINTEK</option>
-                        <option value="SOSHUM">SOSHUM</option>
-                    </select>
-                    <p class="error"
-                       ng-show="form.type.$invalid && (form.type.$touched || form.type.$dirty)">
-                            <span ng-show="form.type.$error.required">
-                                * Jangan dikosongkan ya field ini
-                                <br>
-                            </span>
-                    </p>
-                </div>
-                <div class="six columns">
-                    <label for="gender">Jenis Kelamin</label>
-                    <select ng-required="true" ng-init="user.gender = 'Laki-laki'"
-                            class="u-full-width"
-                            name="gender"
-                            ng-model="user.gender" id="gender">
-                        <option value="Laki-laki" selected>Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
-                    </select>
-                    <p class="error"
-                       ng-show="form.gender.$invalid && (form.gender.$touched || form.gender.$dirty)">
-                            <span ng-show="form.gender.$error.required">
-                                * Jangan dikosongkan ya field ini
-                                <br>
-                            </span>
-                    </p>
-                </div>
             </div>
             <div class="rows">
                 <button style="margin: 1em 0;" type="button" ng-disabled="form.$invalid" ng-click="submit(user);"
